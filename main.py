@@ -22,3 +22,9 @@ merged_piz['time'] = time_series.dt.time
 # Top 5 pizzas by revenue
 top_revenue = merged_piz.groupby('name')['total_price'].sum().sort_values(ascending=False).head(5)
 print(top_revenue)
+#Identifying busiest hours of the day
+busiest_hours = merged_piz.groupby('hour')['order_id'].nunique().sort_values(ascending=False).head(5)
+
+# Resetting the index turns the 'hour' into a regular column
+busiest_hours_df = busiest_hours.reset_index(name='order_count')
+print(busiest_hours_df.head())
